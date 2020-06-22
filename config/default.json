@@ -1,0 +1,5 @@
+{
+    "port": 5000,
+    "mongoDb": "mongodb+srv://admn:admin@cluster0-kslnp.mongodb.net/test?retryWrites=true&w=majority",
+    "jwtSecret": "salt"
+}
