@@ -9,6 +9,11 @@ export default class myService {
             const data = await axios.get('/api/items')
             return data
     }
+    getAItems = async () => {
+      //resolve(this.data)
+      const data = await axios.get('/api/admin')
+      return data
+}
     getResource = async (url) => {
         const res = await axios.get(`${this._apiBase}${url}`);
     

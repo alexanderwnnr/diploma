@@ -20,6 +20,8 @@ async function start() {
     app.use('/api/items', require('./routes/api/items'))
     app.use('/api/item', require('./routes/api/item'))
     app.use('/api/auth', require('./routes/api/auth'))
+    app.use('/api/order', require('./routes/api/order'))
+    app.use('/api/admin', require('./routes/api/admin'))
 
     app.listen(PORT, () => {console.log(`App has been started on port ${PORT}...`)})
 

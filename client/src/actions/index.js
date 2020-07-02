@@ -16,6 +16,17 @@ const itemsError = (error) => {
         payload: error
     }
 }
+const orderLoaded = (userId) => {
+    return {
+        type: 'ORDER_SECCUSS',
+        payload: userId
+    }
+}
+const orderRequested = () => {
+    return {
+        type: 'ORDER_REQUEST'
+    }
+}
 
 // fetchItems has itemsLoaded, itemsRequested, itemsError
 
@@ -33,6 +44,23 @@ const itemsError = (error) => {
 
 
 // for thunk
+const dataLoaded = (newItems) => {
+    return {
+        type: 'FETCH_DATA_SUCCESS',
+        payload: newItems
+    }
+}
+const dataRequested = () => {
+    return {
+        type: 'FETCH_DATA_REQUEST'
+    }
+}
+const dataError = (error) => {
+    return {
+        type: 'FETCH_DATA_FAILURE',
+        payload: error
+    }
+}
 const fetchItems = (myService) => () => (dispatch) => {
     dispatch(itemsRequested())
 
@@ -42,15 +70,32 @@ const fetchItems = (myService) => () => (dispatch) => {
         dispatch(itemsLoaded(res.data)))
         // .catch((err) => dispatch(itemsError(err)))
 }
-const fetchItem = (myService) => () => (dispatch) => {
+const fetchAItems = (myService) => () => (dispatch) => {
+    dispatch(dataRequested())
+
+    myService.getAItems()
+        .then((res) => 
+        // dispatch action to store
+        dispatch(dataLoaded(res.data)))
+        // .catch((err) => dispatch(itemsError(err)))
+}
+const fetchItem = (myService) => (_id) => (dispatch) => {
     dispatch(itemsRequested())
 
-    myService.getItem()
+    myService.getItem(_id)
         .then((res) => 
         // dispatch action to store
         dispatch(itemsLoaded(res.data)))
         .catch((err) => dispatch(itemsError(err)))
 }
+const orderTo = (myService) => () => (dispatch) => {
+    dispatch(orderRequested())
+
+    myService.postOrder()
+        .then(res => dispatch(orderLoaded(res.data)));
+        
+        
+} 
 
 // const fetchItems = (myService) => () => (dispatch) => {
 //     dispatch(itemsRequested())
@@ -67,6 +112,11 @@ const fetchItem = (myService) => () => (dispatch) => {
 
 
 //////////////////////////////////////////////////////
+export const orderSubmit = (itemId) => {
+    return {
+        type: 'ORDER_SUBMIT'
+    }
+}
 
 export const itemAddedToCart = (itemId) => {
     return {
@@ -92,5 +142,6 @@ export const allItemsRemovedFromCart = (itemId) => {
 
 export {
     fetchItems,
+    fetchAItems,
     fetchItem
 }

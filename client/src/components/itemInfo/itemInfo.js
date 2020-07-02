@@ -7,15 +7,18 @@ import { fetchItems, fetchItem, itemAddedToCart } from '../../actions'
 import withService from '../../hoc/withService'
 import ErrorIndicator from '../errorIndicator/errorIndicator'
 import Spinner from '../spinner/spinner'
+import myService from '../../services/myService'
 // import compose from '../../utils/compose'
 
 
-const InfoList = ({name, onAddedToCart}) => {
+const InfoList = ({item, onAddedToCart}) => {
+
+    // const { name, name} = item
 
     return (
         <Grid container direction='column' spacing={2} className="m-auto">
             <Grid>
-            {name}
+            {item}
             </Grid>
         </Grid>
 
@@ -23,21 +26,6 @@ const InfoList = ({name, onAddedToCart}) => {
 
 
 
-
-
-
-
-        // <Grid container direction='row' spacing={2} className="m-auto">
-            
-
-        //             {
-        //                 items.map((item) => {
-        //                     return <Grid item xs={12} md={3} key={item._id}><ListItem item={item} onAddedToCart={() => onAddedToCart(item._id) } /></Grid>
-        //                 })
-        //             }
-                
-            
-        // </Grid>
         
     )
 }
@@ -45,13 +33,33 @@ const InfoList = ({name, onAddedToCart}) => {
 
 class InfoContainer extends Component {
     
+    // service = new myService
 
-    componentDidMount() {
-        this.props.fetchItem()
+    state = {
+        item: {}
     }
+
+    // componentDidMount() {
+    //     this.fetchItem()
+    // }
+
+    // updateItem() {
+    //     const { itemId, getData } = this.props
+        
+    //     getData(itemId)
+    //         .then(item => {
+    //         this.setState({
+    //             item
+    //         });
+    //     });
+    // };
+
+    
+
+    
     
     render() {
-        const {name, loading, error, onAddedToCart} = this.props
+        const {item, loading, error, onAddedToCart} = this.props
 
         if(loading){
             return <Spinner />
@@ -60,7 +68,7 @@ class InfoContainer extends Component {
         //     return <ErrorIndicator />
         // }
         
-        return <InfoList name={name} onAddedToCart={onAddedToCart}/>
+        return <InfoList item={item} onAddedToCart={onAddedToCart}/>
     }
 }
 

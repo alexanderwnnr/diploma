@@ -1,12 +1,16 @@
+
+
 const updateOrder = (state, itemId, quantity) => {
-    const { itemList: { items }, shoppingCart: { cartItems }} = state
-    const item = items.find((item) => item._id === itemId)
+    const { itemList: { items }, shoppingCart: { cartItems, orderTotal }} = state
+    const item = items.find(({_id}) => _id === itemId)
     const itemIndex = cartItems.findIndex(({_id}) => _id === itemId)
     const addedItem = cartItems[itemIndex]
 
+   
+
     const newItem = updateCartItem(item, addedItem, quantity)
         return {
-            orderTotal: 0,
+            orderTotal:0,
             cartItems: updateCartItems(cartItems, newItem, itemIndex)
         }
 }
@@ -63,6 +67,11 @@ const updateShoppingCart = (state, action) => {
         case 'ALL_ITEMS_REMOVED_FROM_CART':
             const addedItem = state.shoppingCart.cartItems.find(({_id}) => _id === action.payload)
             return updateOrder(state, action.payload, -addedItem.count)
+        case 'ORDER_SUBMIT':
+            return {
+                cartItems: [],
+                orderTotal: 0
+            }
         default:
             return state.shoppingCart
     }

@@ -82,31 +82,19 @@ export default function HeadBar() {
     <div className={classes.root} >
       <AppBar position="static" color="inherit" >
         <Toolbar >
-          <Grid container spacing={2} className={classes.grid} >
-            <Grid item xs={12} container justify='flex-end' alignItems='baseline' >
-              <Grid item xs={4} >
+          <Grid container spacing={2} className={classes.grid} alignItems='baseline' >
+            
+              <Grid item xs={3} >
                 <Typography variant="h5" className={classes.paper} gutterBottom>
                   Name
                 </Typography>
               </Grid>
-              <Grid item xs={false} md={6}>
-                
-              </Grid>
-              <Grid item xs={1} >
-              <TransitionsModal />
-              </Grid>
-              <Grid item xs={1} >
-                <Button component={Link} to='/auth/login' size="small" variant="contained"> Login </Button>
-              </Grid>
-            </Grid>
-            <Grid item xs={12} container alignItems='baseline' >
-              <Grid item xs={5} >
+              <Grid item xs={3} >
                 <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
-                  <Tab component={Link} to='/' label="Главная" {...a11yProps(0)} />
                   <Tab component={Link} to='/catalog' label="Каталог" {...a11yProps(1)} />
                 </Tabs>
               </Grid>
-              <Grid item xs={7} >
+              <Grid item xs={3} >
                 <div className={classes.search}>
                   <div className={classes.searchIcon}>
                     <SearchIcon />
@@ -121,7 +109,21 @@ export default function HeadBar() {
                   />
                 </div>
               </Grid>
-            </Grid>
+              
+              <Grid item xs={1} >
+                <TransitionsModal />
+              </Grid>
+              <Grid item xs={1} >
+                <Button component={Link} to='/admin' size="small" variant="contained"> Admin </Button>
+              </Grid>
+              <Grid item xs={1} >
+                <Button component={Link} to='/auth/login' size="small" variant="contained"> Login </Button>
+              </Grid>
+            
+            
+              
+              
+            
           </Grid>
         </Toolbar>
       </AppBar>

@@ -1,16 +1,39 @@
 import React from 'react'
+import axios from 'axios'
 import { Table, ButtonGroup } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import { itemAddedToCart, itemRemovedFromCart, allItemsRemovedFromCart } from '../../actions'
+import { itemAddedToCart, itemRemovedFromCart, allItemsRemovedFromCart, orderSubmit } from '../../actions'
 import IconButton from '@material-ui/core/IconButton';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import IndeterminateCheckBoxIcon from '@material-ui/icons/IndeterminateCheckBox';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import { Grid, Paper, Button, Typography, InputBase, Tabs, Tab } from "@material-ui/core";
 import './cartTable.css'
+import store from '../../store'
 
 const CartTable = ({goods, total, onIncrease, onDecrease, onDelete}) => {
+   
+    const makeOrder = async () => {
+        const cart = store.getState()
+        const token = localStorage.getItem('token')
+        const { shoppingCart } = cart
+
+        const order = {
+            items: shoppingCart.cartItems,
+            total: shoppingCart.orderTotal,
+            token
+        }
+        
+        const res = await axios.post('/api/order', { order: order });
+        alert(res.data.message)
+
+
+        // await axios.post('/api/order', { order: order });
+        // await this.emptyCart();
+        
+      }
     
+
     const renderRow = (good, idx) => {
         const { _id, name, count, total } = good
             return (
@@ -79,7 +102,7 @@ const CartTable = ({goods, total, onIncrease, onDecrease, onDelete}) => {
                         </Typography>
                     </Grid>
                     <Grid className="ml-auto" item>
-                        <Button variant="contained" color="secondary">
+                        <Button onClick={makeOrder} variant="contained" color="secondary">
                             Order
                         </Button>
                     </Grid>
@@ -99,6 +122,7 @@ const mapDispatchToProps = {
         onIncrease: itemAddedToCart,
         onDecrease: itemRemovedFromCart,
         onDelete: allItemsRemovedFromCart
+        
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CartTable)

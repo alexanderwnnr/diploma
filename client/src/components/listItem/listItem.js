@@ -24,6 +24,8 @@ const ListItem = ({item, onAddedToCart}) => {
     className={classes.root}>
         <CardActionArea>
             <CardMedia
+                component={Link}
+                to={`/catalog/:${_id}`}
                 className={classes.media}
                 image={img}
                 title="Contemplative Reptile"
