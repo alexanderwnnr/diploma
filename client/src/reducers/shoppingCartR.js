@@ -10,7 +10,7 @@ const updateOrder = (state, itemId, quantity) => {
 
     const newItem = updateCartItem(item, addedItem, quantity)
         return {
-            orderTotal:0,
+            orderTotal: 0,
             cartItems: updateCartItems(cartItems, newItem, itemIndex)
         }
 }

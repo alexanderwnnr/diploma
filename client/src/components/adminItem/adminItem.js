@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Table } from 'react-bootstrap'
+import { Table, Container } from 'react-bootstrap'
 //import { Card, Button } from 'react-bootstrap'
 import { makeStyles, Card, CardActionArea, CardActions, CardMedia, CardContent, Typography, Button } from '@material-ui/core'
   
@@ -35,7 +35,9 @@ const AdminItem = ({item}) => {
     }
 
     return (
-    <Card className='mt-2'>
+        <Container className='mt-2'>
+            <Card className='mt-2'>
+        
                 <Table>
                     <thead>
                         <tr>
@@ -62,7 +64,8 @@ const AdminItem = ({item}) => {
                             </tr>
                     </tbody>
                 </Table>
-    </Card>
+            </Card>
+        </Container>
     );
 }
 export default AdminItem
